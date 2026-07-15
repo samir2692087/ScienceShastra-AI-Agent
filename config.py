@@ -5,4 +5,4 @@ load_dotenv()
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-MODEL = "openrouter/free"
+MODEL = "openai/gpt-oss-20b:free" 
