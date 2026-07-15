@@ -31,6 +31,7 @@ Today's Science & Technology Topic:
     try:
         # Parse JSON response
         data = json.loads(response)
+        print(data.keys())
 
         # Create output folder
         os.makedirs("output", exist_ok=True)
