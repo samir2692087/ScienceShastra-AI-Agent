@@ -10,7 +10,7 @@ def generate_image(prompt: str):
     """
 
     response = client.models.generate_content(
-        model="gemini-3.1-flash-image",
+        model="gemini-3.1-flash-lite-image",
         contents=prompt,
     )
 
