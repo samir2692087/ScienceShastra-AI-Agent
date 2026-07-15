@@ -11,7 +11,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set Up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -23,6 +23,12 @@ jobs:
 
       - name: Run AI Agent
         env:
-         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python main.py
+
+      - name: Upload Output
+        uses: actions/upload-artifact@v4
+        with:
+          name: science-post
+          path: output/post.json
