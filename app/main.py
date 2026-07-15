@@ -25,9 +25,7 @@ Today's Science & Technology Topic:
 
     # Generate AI response
     response = generate_text(prompt)
-    data = json.loads(response)
-
-    save_topic(data["topic"])
+    
 
     print("\n=========== RAW AI OUTPUT ===========\n")
     print(response)
@@ -35,6 +33,7 @@ Today's Science & Technology Topic:
     try:
         # Parse JSON response
         data = json.loads(response)
+        save_topic(data["topic"])
         print(data.keys())
 
         # Create output folder
