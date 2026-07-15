@@ -4,6 +4,7 @@ import os
 from app.gemini_client import generate_text
 from app.prompts import SYSTEM_PROMPT, CONTENT_PROMPT
 from app.topic_manager import get_new_topic
+from app.export_markdown import export_markdown
 
 
 def main():
@@ -67,6 +68,8 @@ Today's Science & Technology Topic:
             f.write("\n".join(data["hashtags"]))
 
         print("\n✅ All files saved successfully!")
+
+        export_markdown()
 
         print("\n=========== GENERATED CONTENT ===========\n")
         print(f"Topic: {data['topic']}")
