@@ -5,6 +5,7 @@ from app.openrouter_client import generate_text
 from app.prompts import SYSTEM_PROMPT, CONTENT_PROMPT
 from app.topic_manager import get_new_topic
 from app.export_markdown import export_markdown
+from app.content_generator import save_topic
 
 
 def main():
@@ -24,6 +25,9 @@ Today's Science & Technology Topic:
 
     # Generate AI response
     response = generate_text(prompt)
+    data = json.loads(response)
+
+    save_topic(data["topic"])
 
     print("\n=========== RAW AI OUTPUT ===========\n")
     print(response)
