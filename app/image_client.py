@@ -3,7 +3,7 @@ import requests
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-dev"
+API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}",
