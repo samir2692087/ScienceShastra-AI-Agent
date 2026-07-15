@@ -25,4 +25,4 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          python app/main.py
+          python - m app.main
