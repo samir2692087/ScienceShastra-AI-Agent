@@ -30,6 +30,8 @@ def generate_text(prompt):
         timeout=120
     )
 
-    response.raise_for_status()
+    print(response.status_code)
+    print(response.text)
+    return response.text
 
     return response.json()["choices"][0]["message"]["content"]
