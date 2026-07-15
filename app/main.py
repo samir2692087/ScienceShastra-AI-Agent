@@ -6,6 +6,7 @@ from app.prompts import SYSTEM_PROMPT, CONTENT_PROMPT
 from app.topic_manager import get_new_topic
 from app.export_markdown import export_markdown
 from app.content_generator import save_topic
+from app.image_generator import generate_image
 
 
 def main():
@@ -52,6 +53,8 @@ Today's Science & Technology Topic:
 
         with open("output/image_prompt.txt", "w", encoding="utf-8") as f:
             f.write(data["image_prompt"])
+
+            generate_image(data["image_prompt"])
 
         with open("output/youtube_title.txt", "w", encoding="utf-8") as f:
             f.write(data["youtube_title"])
