@@ -1,7 +1,7 @@
 import json
 import os
 
-from app.gemini_client import generate_text
+from app.openrouter_client import generate_text
 from app.prompts import SYSTEM_PROMPT, CONTENT_PROMPT
 from app.topic_manager import get_new_topic
 from app.export_markdown import export_markdown
