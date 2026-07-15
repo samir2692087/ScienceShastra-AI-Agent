@@ -6,10 +6,9 @@ URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
 def generate_text(prompt):
-
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 
     data = {
@@ -17,21 +16,25 @@ def generate_text(prompt):
         "messages": [
             {
                 "role": "user",
-                "content": prompt
+                "content": prompt,
             }
         ],
-        "temperature": 0.8
+        "temperature": 0.8,
     }
 
     response = requests.post(
         URL,
         headers=headers,
         json=data,
-        timeout=120
+        timeout=120,
     )
 
-    print(response.status_code)
+    print("Status Code:", response.status_code)
+    print("Response:")
     print(response.text)
-    return response.text
 
-    return response.json()["choices"][0]["message"]["content"]
+    response.raise_for_status()
+
+    result = response.json()
+
+    return result["choices"][0]["message"]["content"]
