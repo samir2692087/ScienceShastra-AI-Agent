@@ -1,4 +1,5 @@
 import json
+import os
 
 from app.gemini_client import generate_text
 from app.prompts import SYSTEM_PROMPT, CONTENT_PROMPT
@@ -14,6 +15,7 @@ def main():
 {SYSTEM_PROMPT}
 
 Today's Science & Technology Topic:
+
 {topic}
 
 {CONTENT_PROMPT}
@@ -22,32 +24,40 @@ Today's Science & Technology Topic:
     # Generate AI response
     response = generate_text(prompt)
 
-    print("\n========== RAW AI OUTPUT ==========\n")
+    print("\n=========== RAW AI OUTPUT ===========\n")
     print(response)
+
+    # Save output
+    os.makedirs("output", exist_ok=True)
+
+    with open("output/post.json", "w", encoding="utf-8") as f:
+        f.write(response)
+
+    print("\n✅ Output saved to output/post.json")
 
     try:
         # Parse JSON response
         data = json.loads(response)
 
-        print("\n========== GENERATED CONTENT ==========\n")
+        print("\n=========== GENERATED CONTENT ===========\n")
 
         print(f"Topic: {data['topic']}")
         print(f"Category: {data['category']}")
 
-        print("\n========== ENGLISH ==========\n")
+        print("\n=========== ENGLISH ===========\n")
         print(data["english_title"])
         print()
         print(data["english_post"])
 
-        print("\n========== HINDI ==========\n")
+        print("\n=========== HINDI ===========\n")
         print(data["hindi_title"])
         print()
         print(data["hindi_post"])
 
-        print("\n========== IMAGE PROMPT ==========\n")
+        print("\n=========== IMAGE PROMPT ===========\n")
         print(data["image_prompt"])
 
-        print("\n========== HASHTAGS ==========\n")
+        print("\n=========== HASHTAGS ===========\n")
         print(" ".join(data["hashtags"]))
 
     except Exception as e:
