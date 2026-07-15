@@ -30,8 +30,14 @@ jobs:
         run: |
           python main.py
 
+      - name: Test Image Generation
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python test_image.py
+
       - name: Upload Output
         uses: actions/upload-artifact@v4
         with:
-          name: science-post
+          name: science-output
           path: output/
