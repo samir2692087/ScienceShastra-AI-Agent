@@ -1,33 +1,35 @@
 import os
-import requests
+import time
+import fal_client
 
-HF_TOKEN = os.getenv("HF_TOKEN")
+FAL_KEY = os.getenv("FAL_KEY")
 
-API_URL = "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell"
+os.environ["FAL_KEY"] = FAL_KEY
 
-headers = {
-    "Authorization": f"Bearer {HF_TOKEN}",
-    "Content-Type": "application/json",
-}
 
 def generate_image(prompt: str, output_path="output/image.png"):
-    response = requests.post(
-        API_URL,
-        headers=headers,
-        json={
-            "inputs": prompt
-        },
-        timeout=300
-    )
-
-    if response.status_code != 200:
-        raise Exception(
-            f"Hugging Face Error {response.status_code}: {response.text}"
-        )
 
     os.makedirs("output", exist_ok=True)
 
+    result = fal_client.subscribe(
+        "fal-ai/flux/dev",
+        arguments={
+            "prompt": prompt,
+            "image_size": "landscape_4_3",
+            "num_images": 1,
+            "enable_safety_checker": True
+        }
+    )
+
+    image_url = result["images"][0]["url"]
+
+    import requests
+
+    img = requests.get(image_url, timeout=300)
+
+    img.raise_for_status()
+
     with open(output_path, "wb") as f:
-        f.write(response.content)
+        f.write(img.content)
 
     return output_path
