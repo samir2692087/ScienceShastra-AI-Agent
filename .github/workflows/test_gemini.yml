@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: '0 4 * * *'
+    - cron: "0 4 * * *"
 
 jobs:
   test:
@@ -27,12 +27,13 @@ jobs:
       - name: Run AI Agent
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          FAL_KEY: ${{ secrets.FAL_KEY }}
         run: |
           python main.py
 
       - name: Test Image Generation
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          FAL_KEY: ${{ secrets.FAL_KEY }}
         run: |
           python test_image.py
 
